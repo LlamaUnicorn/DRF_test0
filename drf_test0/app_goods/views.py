@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from app_goods.entities import Item
+from app_goods.serializers import ItemSerializer
 
 
 def items_list(request):
@@ -14,4 +15,10 @@ def items_list(request):
                 description="Отличный звук",
                 weight=150),
         ]
-        return JsonResponse(items_for_sale)
+        # return JsonResponse(ItemSerializer(items_for_sale, many=True).data,
+        #                     safe=False)
+        return JsonResponse(ItemSerializer(Item(
+                    name="Кофеварка",
+                    description="Варит отличный кофе",
+                    weight=100
+                )).data, safe=False)
